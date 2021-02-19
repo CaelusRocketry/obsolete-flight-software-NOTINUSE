@@ -53,19 +53,11 @@ void Telemetry::recv_loop() {
     while (connection && !TERMINATE_FLAG) {
         try {
             // Read in data from socket
-            boost::array<char, 1024> buf;
-            boost::system::error_code error;
-            socket.read_some(boost::asio::buffer(buf), error);
-
-            if (error == boost::asio::error::eof) {
-                end();
-                break; // Connection closed cleanly by peer.
-            } else if (error) {
-                throw boost::system::system_error(error); // Some other error.
-            }
-
-            string msg(buf.data());
-
+            // Read in data from socket
+            boost::asio::streambuf buf;
+            boost::asio::read_until(socket, buf, "END");
+            string msg = boost::asio::buffer_cast<const char*>(buf.data());
+            
             mtx.lock();
             ingest_queue.push(msg);
             mtx.unlock();
