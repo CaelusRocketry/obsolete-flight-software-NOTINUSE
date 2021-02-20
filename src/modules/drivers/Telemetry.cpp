@@ -57,7 +57,7 @@ void Telemetry::recv_loop() {
             boost::asio::streambuf buf;
             boost::asio::read_until(socket, buf, "END");
             string msg = boost::asio::buffer_cast<const char*>(buf.data());
-            
+
             mtx.lock();
             ingest_queue.push(msg);
             mtx.unlock();
