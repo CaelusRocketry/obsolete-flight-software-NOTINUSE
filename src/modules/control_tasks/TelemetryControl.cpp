@@ -58,6 +58,7 @@ void TelemetryControl::execute() {
         }
     }
 }
+
 void TelemetryControl::ingest(const Log& log) {
     string header = log.getHeader();
     json params = log.getMessage();
@@ -67,7 +68,7 @@ void TelemetryControl::ingest(const Log& log) {
         string new_msg_str = dump.substr(1, dump.length() - 2);
         new_msg_str = Util::replaceAll(new_msg_str, "\\", "");
         cout << "new str: " << new_msg_str << endl;
-        params = json::parse(new_msg_str);
+        params = json::parse(new_msg_str); // jsonvalsToString(json::parse(new_msg_str));
         cout << params.dump() << endl;
     }
     // Make sure the function exists
@@ -88,7 +89,10 @@ void TelemetryControl::ingest(const Log& log) {
 
     try {
         for (const string& argument_name : argument_order) {
-            param_values.push_back(params.at(argument_name).get<string>());
+            cout << argument_name << endl;
+            cout << params.at(argument_name) << endl;
+
+            param_values.push_back(params.at(argument_name));
         }
     } catch (...) {
         global_flag.log_warning("info", {{"message", "Invalid function arguments"}});
@@ -141,7 +145,7 @@ void TelemetryControl::solenoid_actuate(const vector<string>& args) {
 
     int current_priority = int(global_registry.valves["solenoid"][args[0]].actuation_priority);
 
-    if (int(valve_priority_map[args[2]]) < current_priority) {
+    if (stoi(args[2]) < current_priority) {
         global_flag.log_critical("Valve actuation", {
             {"header", "Valve actuation"},
             {"Status", "Failure"},
@@ -150,7 +154,7 @@ void TelemetryControl::solenoid_actuate(const vector<string>& args) {
             {"Actuation type", args[1]},
             {"Priority", args[2]}
         });
-        throw INSUFFICIENT_PRIORITY_SOLENOID_ERROR();
+// throw INSUFFICIENT_PRIORITY_SOLENOID_ERROR();
     }
 
     log("Actuating solenoid at " + args[0] + " with actuation type " + args[1]);
@@ -172,7 +176,7 @@ void TelemetryControl::solenoid_actuate(const vector<string>& args) {
         throw INVALID_PACKET_MESSAGE_ERROR();
     }
 
-    global_flag.log_info("Valve actuation", {
+    global_flag.log_info("response", {
         {"header", "Valve actuation"},
         {"Status", "Success"},
         {"Description", "Successfully activated solenoid"}
