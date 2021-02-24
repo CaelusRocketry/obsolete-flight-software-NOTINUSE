@@ -49,8 +49,8 @@ double StageControl::calculate_status() const {
         return 100.0;
     } else if (current_stage == Stage::PRESSURIZATION) {
         // if we're using PT-2 in the current test
-        if(global_registry.sensors["pressure"].find("PT-2") != global_registry.sensors["pressure"].end()) {
-            double pressure = global_registry.sensors["pressure"]["PT-2"].normalized_value;
+        if(global_registry.sensors["pressure"].find("PT-7") != global_registry.sensors["pressure"].end()) {
+            double pressure = global_registry.sensors["pressure"]["PT-7"].normalized_value;
             return std::min(100.0, pressure/4.9);
         }
         else {
