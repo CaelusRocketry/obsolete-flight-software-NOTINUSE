@@ -63,7 +63,8 @@ void TelemetryControl::ingest(const Log& log) {
     std::cout << params.dump() << std::endl;
     // Make sure the function exists
     if (this->functions.find(header) == this->functions.end()) {
-        throw INVALID_HEADER_ERROR();
+        std::cerr << "ERROR: INVALID HEADER: " << header << '\n';
+//        throw INVALID_HEADER_ERROR();
     }
 
     auto function = this->functions.at(header);
