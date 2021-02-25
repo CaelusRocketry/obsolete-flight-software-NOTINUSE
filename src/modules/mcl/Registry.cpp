@@ -43,6 +43,7 @@ void Registry::initialize() {
     general.stage = Stage::WAITING;
     general.stage_status = 0.0;
     general.stage_progress = 0;
+    general.t_initial = std::chrono::system_clock::now();
 }
 
 bool Registry::valve_exists(const string& type, const string& location) {

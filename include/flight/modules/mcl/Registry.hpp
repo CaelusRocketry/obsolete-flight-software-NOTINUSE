@@ -37,6 +37,7 @@ public:
         Stage stage = Stage::WAITING;
         double stage_status = 0;
         int stage_progress = 0;
+        std::chrono::time_point<std::chrono::system_clock> t_initial;// timestamp;
     } general;
 
     struct {

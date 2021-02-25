@@ -21,7 +21,7 @@ PseudoSensor::PseudoSensor(){
 void PseudoSensor::set_sensor_values() {
     // Adjust by a random value
     for (const auto& sensor_ : sensor_list) {
-        sensor_values[sensor_] += (rand() % 20 - 10);
+        sensor_values[sensor_] += (rand() % 21 - 10);
     }
 }
 
