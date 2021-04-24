@@ -6,6 +6,7 @@
 #include <ArduinoJson.h>
 #include <flight/modules/lib/Util.hpp>
 #include <flight/modules/lib/logger_util.hpp>
+#include <SD.h>
 
 using namespace std;
 using ArduinoJson::StaticJsonDocument;
