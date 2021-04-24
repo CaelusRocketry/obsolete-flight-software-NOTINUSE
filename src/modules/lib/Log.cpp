@@ -119,19 +119,33 @@ void Log::from_json(const JsonObject& j, Log& log) {
 
 // Log string to black_box.txt
 void Log::save(const string& filename) const {
-    // ofstream file;
-    // file.open(filename, fstream::in | fstream::out | fstream::app);
 
-    // if(!file) {
-    //     file.open(filename, fstream::in | fstream::out | fstream::trunc);
-    // }
+    #ifdef DESKTOP
+        ofstream savefile;
+        savefile.open(filename);
+        string output;
+        to_string(output, *this);
+        savefile << output + "\n";
+        savefile.close();
+    #endif
 
-    
-    string output;
-    to_string(output, *this); 
+    #ifdef TEENSY
+        File savefile;
+        savefile = SD.open(filename.c_str(), FILE_WRITE);
 
-    // file << output << endl;
-    // file.close();
+        if (savefile) // it opened OK
+        {
+            Serial.println("Saving file!");
+            string output;
+            to_string(output, *this);
+            savefile.println(output.c_str());
+            savefile.close();
+            Serial.println("Done");
+        }
+        else {
+            Serial.println("Error opening simple.txt");
+        }
+    #endif
 }
 
 Log Log::copy(){
