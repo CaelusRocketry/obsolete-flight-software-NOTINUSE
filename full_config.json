@@ -64,8 +64,8 @@
                     "warn": [50, 550]
                   }
                 },
-                "pressure_pin": 10
-              },
+                "pressure_pin": 23
+              }, //1, 2, 5, 6
               "PT-2": {
                 "kalman_args": {
                   "process_variance": 0.01,
@@ -90,7 +90,7 @@
                     "warn": [50, 550]
                   }
                 },
-                "pressure_pin": 27
+                "pressure_pin": 19
               },
               "PT-3": {
                 "kalman_args": {
