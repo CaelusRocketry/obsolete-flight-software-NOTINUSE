@@ -18,14 +18,14 @@ int main(int argc, char** argv) { // argc = len(argv) in python; char** argv = a
         pinMode(13, OUTPUT);
         digitalWrite(13, HIGH);
         print("Initializing SD card");
-        Serial.println(BUILTIN_SDCARD);
-        if(SD.begin(BUILTIN_SDCARD)){
+        //Serial.println(BUILTIN_SDCARD);
+        /* if(SD.begin(BUILTIN_SDCARD)){
             Serial.println("Initialization success");
         }
         else{
             while(true){};
             Serial.println("Init failed");
-        }
+        } */
     #endif
 
     print("INFO: Starting Application"); 

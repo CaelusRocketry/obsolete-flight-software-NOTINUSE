@@ -79,7 +79,7 @@ void Log::save(const string& filename) const {
     // #endif
 
     #ifdef TEENSY
-        print("Writing data to SD card.");
+        /* print("Writing data to SD card.");
         File savefile;
         savefile = SD.open("blackbox.txt", FILE_WRITE);
 
@@ -95,8 +95,7 @@ void Log::save(const string& filename) const {
         }
         else {
             Serial.println("Error opening file:");
-            Serial.println("blackbox.txt");
-        }
+             */
     #endif
     
    return;

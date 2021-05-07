@@ -61,13 +61,17 @@
         ret = this->maxthermos[idx]->readThermocoupleTemperature();
         Serial.println((int)Util::getTime());
         uint8_t fault = this->maxthermos[idx]->readFault();
-        print(Util::to_string(idx) + " " + Util::to_string(ret) + " " + Util::to_string(fault));
+        print(Util::hex(idx) + " " + Util::hex(ret) + " " + Util::hex(fault));
 
 
         if (fault) {
             ret = -420;
         }
         Serial.println((int)Util::getTime());
+
+        if(ret < 0) {
+            return 0;
+        }
 
         return ret;
     }
