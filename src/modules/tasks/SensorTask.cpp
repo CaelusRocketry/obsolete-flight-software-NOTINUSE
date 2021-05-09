@@ -47,6 +47,10 @@ void SensorTask::read() {
     print("Sensor: Reading");
     pressure_driver->read();
     thermo_driver->read();
+    
+    if (load_cell_driver != nullptr) {
+        load_cell_driver->read();
+    }
 
     // Update pressure sensor values
     for(unsigned int i = 0; i < pressure_pins.size(); i++){

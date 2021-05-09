@@ -1,5 +1,6 @@
 #include <flight/modules/drivers/PseudoLoadCellDriver.hpp>
 #include <flight/modules/lib/logger_util.hpp>
+#include <stdlib.h>
 
 // Ex.
 // {
